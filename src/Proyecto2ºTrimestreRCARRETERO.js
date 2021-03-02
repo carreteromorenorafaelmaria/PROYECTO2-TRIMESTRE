@@ -202,7 +202,7 @@ db.ventasolivos.aggregate(
 
 
 //Aggregate el cual muestra el dia, mes y año, divididos. 
-//Además del Nombre del Cliente/Empresa, y el total a pagar por la venta de olivos.
+//Además del Nombre del Cliente/Empresa, y el total a pagar por la venta de olivos. Todo ello ordenado según el dinero conseguido por las ventas.
 db.ventasolivos.aggregate([
     {
         $unwind: "$detalle"
@@ -250,7 +250,7 @@ db.ventasolivos.aggregate([
     },
     {
         $sort: {
-            _id: 1
+            "conseguidoventas": -1
         }
     }
 ]).pretty()
