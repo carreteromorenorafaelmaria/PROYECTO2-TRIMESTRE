@@ -200,6 +200,20 @@ db.ventasolivos.aggregate(
     ]
 ).pretty()
 
+//Aggregate al contrario del anterior, 
+//nos devuelven los clientes que han comprado una variedad de olivos en concreto
+db.catolivos.aggregate(
+    [
+        {
+            $lookup: {
+                from: "ventasolivos",
+                localField: "codoliv",
+                foreignField: "detalle.codoliv",
+                as: "olivoscompradospor:"
+            }
+        }
+    ]
+).pretty()
 
 //Aggregate el cual muestra el dia, mes y año, divididos. 
 //Además del Nombre del Cliente/Empresa, y el total a pagar por la venta de olivos. Todo ello ordenado según el dinero conseguido por las ventas.
