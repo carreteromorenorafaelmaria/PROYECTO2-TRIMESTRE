@@ -216,7 +216,8 @@ db.catolivos.aggregate(
 ).pretty()
 
 //Aggregate el cual muestra el dia, mes y año, divididos. 
-//Además del Nombre del Cliente/Empresa, y el total a pagar por la venta de olivos. Todo ello ordenado según el dinero conseguido por las ventas.
+//Además del Nombre del Cliente/Empresa con el código de la venta en cuestión(es igual que el codigo del cliente),
+//y el total a pagar por la venta de olivos. Todo ello ordenado según el dinero conseguido por las ventas.
 db.ventasolivos.aggregate([
     {
         $unwind: "$detalle"
@@ -237,7 +238,7 @@ db.ventasolivos.aggregate([
     {
         $project: {
             _id: 0,
-            "codigoventa": "$codoliv",
+            "codigoventa": "$codcli",
             "dia": { $dayOfMonth: "$fechaven" },
             "mes": { $month: "$fechaven" },
             "año": { $year: "$fechaven" },
@@ -253,7 +254,7 @@ db.ventasolivos.aggregate([
     {
         $group: {
             _id: {
-                "codigoventa": "$codigoCompra",
+                "codigoventas": "$codigoventa",
                 "dia": "$dia",
                 "mes": "$mes",
                 "año": "$año",
